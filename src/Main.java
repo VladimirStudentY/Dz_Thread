@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         // заполнил текстовый массив
-        String[] texts = new String[5];
+        String[] texts = new String[25];
         for (int i = 0; i < texts.length; i++) {
             texts[i] = generateText("aab", 30_000);
         }
@@ -40,7 +40,7 @@ public class Main {
                         }
                     }
             ));
-            System.out.println(m);
+            
         }
         for (Thread thread : threads) {
             thread.start();
