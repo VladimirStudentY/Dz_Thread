@@ -35,7 +35,7 @@ public class Main {
                                 }
                             }
                         }
-                        System.out.println(text.substring(0, 10) + " -> " + maxSize);
+                        System.out.println(text.substring(0, 100) + " -> " + maxSize);
                     }
             ));
         }
