@@ -13,35 +13,33 @@ public class Main {
         }
 
         List<Thread> threads = new ArrayList<Thread>();
-        // заполняю арей лист новыми потоками используя лямбду с логикой работы в run
-        for (int m = 0; m < texts.length; m++) {
+        long startTs = System.currentTimeMillis(); // start time
+        for (String text : texts) {
             threads.add(new Thread(
                     () -> {
-                        for (String text : texts) {
-                            int maxSize = 0;
-                            for (int i = 0; i < text.length(); i++) {
-                                for (int j = 0; j < text.length(); j++) {
-                                    if (i >= j) {
-                                        continue;
-                                    }
-                                    boolean bFound = false;
-                                    for (int k = i; k < j; k++) {
-                                        if (text.charAt(k) == 'b') {
-                                            bFound = true;
-                                            break;
-                                        }
-                                    }
-                                    if (!bFound && maxSize < j - i) {
-                                        maxSize = j - i;
+                        int maxSize = 0;
+                        for (int i = 0; i < text.length(); i++) {
+                            for (int j = 0; j < text.length(); j++) {
+                                if (i >= j) {
+                                    continue;
+                                }
+                                boolean bFound = false;
+                                for (int k = i; k < j; k++) {
+                                    if (text.charAt(k) == 'b') {
+                                        bFound = true;
+                                        break;
                                     }
                                 }
+                                if (!bFound && maxSize < j - i) {
+                                    maxSize = j - i;
+                                }
                             }
-                            System.out.println(text.substring(0, 100) + " -> " + maxSize);
                         }
+                        System.out.println(text.substring(0, 10) + " -> " + maxSize);
                     }
             ));
-
         }
+
         for (Thread thread : threads) {
             thread.start();
         }
@@ -49,9 +47,6 @@ public class Main {
         for (Thread thread : threads) {
             thread.join();
         }
-
-        long startTs = System.currentTimeMillis(); // start time
-
 
         long endTs = System.currentTimeMillis(); // end time
 
@@ -66,4 +61,5 @@ public class Main {
         }
         return text.toString();
     }
+
 }
